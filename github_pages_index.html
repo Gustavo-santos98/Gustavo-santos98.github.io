@@ -1,0 +1,373 @@
+<title>Portfólio · Supply Chain & IA</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<style>
+  /* Layout: one-page monocromático (preto/branco/cinza). Hero = título+botões à esquerda,
+     foto redonda à direita, e faixa de 3 etapas na horizontal com setas. Resto em faixas alternadas. */
+  :root {
+    --bg: #f4f4f5;
+    --surface: #ffffff;
+    --surface-2: #ececec;
+    --fg: #111214;
+    --muted: #6b6f72;
+    --line: #dcdddf;
+    --accent: #111214;      /* preto: botão primário, detalhes */
+    --accent-ink: #ffffff;  /* texto sobre o preto */
+    --display: "Sora", system-ui, "Segoe UI", sans-serif;
+    --body: "Inter", system-ui, "Segoe UI", sans-serif;
+    --mono: "JetBrains Mono", ui-monospace, Menlo, monospace;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #0e0f10;
+      --surface: #17181a;
+      --surface-2: #202224;
+      --fg: #f0f1f2;
+      --muted: #a2a7ab;
+      --line: #2a2c2f;
+      --accent: #f0f1f2;     /* branco no escuro */
+      --accent-ink: #0e0f10;
+      color-scheme: dark;
+    }
+  }
+  :root[data-theme="dark"] {
+    --bg: #0e0f10;
+    --surface: #17181a;
+    --surface-2: #202224;
+    --fg: #f0f1f2;
+    --muted: #a2a7ab;
+    --line: #2a2c2f;
+    --accent: #f0f1f2;
+    --accent-ink: #0e0f10;
+    color-scheme: dark;
+  }
+
+  * { box-sizing: border-box; }
+  body { background: var(--bg); color: var(--fg); font-family: var(--body); line-height: 1.6; -webkit-font-smoothing: antialiased; }
+  h1, h2, h3 { font-family: var(--display); text-wrap: balance; line-height: 1.12; margin: 0; }
+  p { margin: 0; }
+
+  .wrap {
+    max-width: 1080px; margin: 0 auto;
+    padding-left: max(20px, env(safe-area-inset-left, 0px));
+    padding-right: max(20px, env(safe-area-inset-right, 0px));
+  }
+  .section { padding-block: clamp(3rem, 8vw, 5.5rem); }
+  .eyebrow {
+    font-family: var(--mono); font-size: 0.73rem; letter-spacing: 0.16em;
+    text-transform: uppercase; color: var(--muted); margin-bottom: 0.9rem;
+  }
+
+  /* NAV */
+  nav { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 20;
+    background: color-mix(in srgb, var(--bg) 88%, transparent); backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--line); }
+  body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px); z-index: 21; background: var(--bg); }
+  .nav-inner { display: flex; align-items: center; justify-content: space-between; gap: 1rem; padding-block: 0.85rem; }
+  .brand { font-family: var(--display); font-weight: 700; font-size: 1.02rem; letter-spacing: -0.01em; }
+  .nav-links { display: flex; gap: 1.4rem; flex-wrap: wrap; }
+  .nav-links a { text-decoration: none; font-size: 0.9rem; color: var(--muted); transition: color .18s; }
+  .nav-links a:hover { color: var(--fg); }
+  @media (max-width: 680px) { .nav-links { display: none; } }
+
+  /* HERO */
+  .hero { padding-top: clamp(2.5rem, 7vw, 4.5rem); }
+  .hero h1 { font-size: clamp(2.3rem, 6.5vw, 4rem); font-weight: 700; letter-spacing: -0.03em; max-width: 16ch; }
+  .hero .lede { margin-top: 1.25rem; font-size: clamp(1.02rem, 2.2vw, 1.18rem); color: var(--muted); max-width: 56ch; }
+  .cta-row { margin-top: 1.9rem; display: flex; gap: 0.7rem; flex-wrap: wrap; }
+  .btn { display: inline-flex; align-items: center; gap: .5rem; padding: .72rem 1.3rem; border-radius: 8px;
+    font-size: .92rem; font-weight: 600; text-decoration: none; transition: transform .15s, background .15s; border: 1px solid var(--line); }
+  .btn:hover { transform: translateY(-2px); }
+  .btn-primary { background: var(--accent); color: var(--accent-ink); border-color: var(--accent); }
+  .btn-ghost { background: transparent; color: var(--fg); }
+  .btn-ghost:hover { background: var(--surface-2); }
+
+  /* faixa de etapas (3 cards horizontais com setas) */
+  .pipeline { margin-top: clamp(2rem, 5vw, 3rem); display: flex; align-items: stretch; gap: 0.6rem; flex-wrap: wrap; }
+  .pipe-card { flex: 1 1 220px; min-width: 200px; background: var(--surface); border: 1px solid var(--line);
+    border-radius: 10px; padding: 1.1rem 1.2rem; }
+  .pipe-card.accent { border-color: var(--fg); border-width: 1.5px; }
+  .pipe-card b { font-size: .96rem; font-family: var(--display); }
+  .pipe-card small { display: block; color: var(--muted); font-size: .85rem; margin-top: .25rem; }
+  .arrow { align-self: center; color: var(--muted); font-size: 1.3rem; flex: none; }
+  @media (max-width: 640px) { .arrow { display: none; } .pipe-card { flex-basis: 100%; } }
+
+  /* SOBRE */
+  .alt { background: var(--surface); border-block: 1px solid var(--line); }
+  .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(1.5rem,4vw,3rem); align-items: start; }
+  @media (max-width: 760px) { .about-grid { grid-template-columns: 1fr; } }
+  .about-grid h2 { font-size: clamp(1.6rem, 4vw, 2.2rem); }
+  .about-grid p + p { margin-top: 1rem; }
+  .body-col { color: var(--muted); max-width: 60ch; }
+  .body-col strong { color: var(--fg); }
+  .highlight { background: var(--surface-2); border-left: 3px solid var(--fg); border-radius: 0 8px 8px 0;
+    padding: 1rem 1.2rem; margin-top: 1.4rem; font-size: .95rem; }
+  .highlight .big { font-family: var(--display); font-weight: 700; font-size: 1.5rem; color: var(--fg); display: block; }
+
+  /* VALOR */
+  .pillars { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.1rem; margin-top: 2.2rem; }
+  @media (max-width: 760px) { .pillars { grid-template-columns: 1fr; } }
+  .pillar { background: var(--surface); border: 1px solid var(--line); border-radius: 12px; padding: 1.4rem; }
+  .pillar .ico { font-family: var(--mono); font-size: .71rem; letter-spacing: .13em; color: var(--muted); text-transform: uppercase; }
+  .pillar h3 { font-size: 1.12rem; margin: .6rem 0 .5rem; }
+  .pillar p { color: var(--muted); font-size: .92rem; }
+
+  /* COMPETÊNCIAS */
+  .skills-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: .9rem; margin-top: 2rem; }
+  @media (max-width: 860px) { .skills-grid { grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width: 460px) { .skills-grid { grid-template-columns: 1fr; } }
+  .skill { background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 1rem 1.1rem; }
+  .skill b { display: block; font-size: .96rem; font-family: var(--display); }
+  .skill small { color: var(--muted); font-size: .82rem; }
+
+  /* PROJETOS */
+  .proj-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.2rem; margin-top: 2.2rem; }
+  @media (max-width: 760px) { .proj-grid { grid-template-columns: 1fr; } }
+  .card { background: var(--surface); border: 1px solid var(--line); border-radius: 14px; padding: 1.5rem;
+    display: flex; flex-direction: column; gap: .75rem; transition: border-color .18s, transform .18s; }
+  .card:hover { border-color: var(--fg); transform: translateY(-3px); }
+  .card .cat { font-family: var(--mono); font-size: .71rem; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); }
+  .card h3 { font-size: 1.22rem; }
+  .card .q { color: var(--muted); font-style: italic; font-size: .92rem; }
+  .card p { color: var(--muted); font-size: .92rem; min-width: 0; }
+  .tags { display: flex; flex-wrap: wrap; gap: .4rem; margin-top: .2rem; }
+  .tag { font-family: var(--mono); font-size: .72rem; padding: .2rem .55rem; border-radius: 5px;
+    background: var(--surface-2); color: var(--fg); border: 1px solid var(--line); }
+  .metric { display: inline-flex; align-items: baseline; gap: .4rem; font-family: var(--mono); font-size: .82rem; color: var(--fg); margin-top: .3rem; }
+  .metric b { font-size: 1.05rem; }
+  .card-link { margin-top: auto; font-size: .88rem; font-weight: 600; text-decoration: none; color: var(--fg);
+    display: inline-flex; align-items: center; gap: .3rem; border-bottom: 1px solid var(--line); align-self: flex-start; padding-bottom: 1px; }
+  .card-link:hover { border-color: var(--fg); }
+
+  /* CONTATO */
+  .contact { text-align: center; }
+  .contact h2 { font-size: clamp(1.7rem, 4vw, 2.4rem); }
+  .contact p { color: var(--muted); margin: 1rem auto 0; max-width: 46ch; }
+  .contact-row { margin-top: 2rem; display: flex; gap: .8rem; justify-content: center; flex-wrap: wrap; }
+  .mail-chip { font-family: var(--mono); font-size: .9rem; background: var(--surface-2); border: 1px solid var(--line);
+    border-radius: 7px; padding: .6rem 1rem; display: inline-flex; align-items: center; gap: .6rem; }
+  .copy-btn { cursor: pointer; border: none; background: var(--accent); color: var(--accent-ink);
+    font-size: .72rem; border-radius: 5px; padding: .25rem .55rem; font-family: var(--mono); }
+
+  footer { border-top: 1px solid var(--line); padding-block: 1.6rem; text-align: center; color: var(--muted); font-size: .82rem; }
+
+  .theme-btn { background: transparent; border: 1px solid var(--line); color: var(--muted); width: 34px; height: 34px;
+    border-radius: 7px; cursor: pointer; font-size: .95rem; display: grid; place-items: center; }
+  .theme-btn:hover { color: var(--fg); border-color: var(--muted); }
+
+  @media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
+</style>
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Sora:wght@500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;700&display=swap">
+
+<nav>
+  <div class="wrap nav-inner">
+    <div class="brand">Gustavo Santos</div>
+    <div class="nav-links">
+      <a href="#sobre">Sobre</a>
+      <a href="#valor">Como atuo</a>
+      <a href="#competencias">Competências</a>
+      <a href="#projetos">Projetos</a>
+      <a href="#contato">Contato</a>
+    </div>
+    <button class="theme-btn" id="themeToggle" aria-label="Alternar tema">◐</button>
+  </div>
+</nav>
+
+<header class="hero section">
+  <div class="wrap">
+    <div>
+      <h1>Transformando supply chain com dados e IA.</h1>
+      <p class="lede">Venho da operação de supply chain e construo automações e soluções de IA em cima de processos reais — de quem entende o problema de negócio e sabe resolvê-lo tecnicamente.</p>
+      <div class="cta-row">
+        <a class="btn btn-primary" href="#projetos">Ver projetos</a>
+        <a class="btn btn-ghost" href="curriculo.pdf" target="_blank" rel="noopener">Currículo</a>
+        <a class="btn btn-ghost" href="https://www.linkedin.com/in/gustavotsantos/" target="_blank" rel="noopener">LinkedIn</a>
+      </div>
+    </div>
+
+    <div class="pipeline">
+      <div class="pipe-card">
+        <b>APIs, bancos e planilhas</b>
+        <small>Fontes diferentes, formatos diferentes</small>
+      </div>
+      <div class="arrow">→</div>
+      <div class="pipe-card">
+        <b>Python, Power Query & Automate</b>
+        <small>Extração, tratamento e automação</small>
+      </div>
+      <div class="arrow">→</div>
+      <div class="pipe-card accent">
+        <b>IA & Power BI</b>
+        <small>Decisão mais rápida para a operação</small>
+      </div>
+    </div>
+  </div>
+</header>
+
+<section class="section alt" id="sobre">
+  <div class="wrap about-grid">
+    <div>
+      <div class="eyebrow">Sobre</div>
+      <h2>Quem entende o processo e constrói a solução.</h2>
+    </div>
+    <div class="body-col">
+      <p>Atuo há <strong>7 anos</strong> em Supply Chain e, nesse tempo, me especializei em resolver gargalos operacionais com dados, automação e IA. Meu diferencial é unir <strong>conhecimento profundo de processos de negócio</strong> com a <strong>capacidade técnica de automatizá-los</strong>.</p>
+      <p>Trabalho muito com tratamento de dados e automação ponta a ponta: extraio de várias fontes, padronizo, aplico IA onde ela gera valor real e devolvo o resultado no formato que a operação precisa para decidir.</p>
+      <div class="highlight">
+        <span class="big">[ex: de 1h → 5min]</span>
+        Automatizei em [Python/Power Automate] a coleta e consolidação de dados de [N] fontes, reduzindo um processo diário de cerca de uma hora para poucos minutos.
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="valor">
+  <div class="wrap">
+    <div class="eyebrow">Como gero valor</div>
+    <h2 style="font-size:clamp(1.6rem,4vw,2.2rem)">Três frentes de trabalho</h2>
+    <div class="pillars">
+      <div class="pillar">
+        <div class="ico">Automação</div>
+        <h3>Processos que rodam sozinhos</h3>
+        <p>Transformo rotinas manuais e repetitivas em fluxos automatizados, confiáveis e que outras pessoas da equipe conseguem manter.</p>
+      </div>
+      <div class="pillar">
+        <div class="ico">Dados</div>
+        <h3>Dados confiáveis e tratados</h3>
+        <p>Extração, limpeza, padronização e validação de dados de múltiplas fontes — a base para qualquer análise ou decisão fazer sentido.</p>
+      </div>
+      <div class="pillar">
+        <div class="ico">IA aplicada</div>
+        <h3>IA no lugar certo do processo</h3>
+        <p>Uso IA para classificar, prever e acelerar decisões dentro do fluxo de supply chain, sempre amarrada a um ganho de negócio concreto.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section alt" id="competencias">
+  <div class="wrap">
+    <div class="eyebrow">Competências técnicas</div>
+    <h2 style="font-size:clamp(1.6rem,4vw,2.2rem)">Da extração do dado à decisão</h2>
+    <div class="skills-grid">
+      <div class="skill"><b>Python</b><small>pandas, automação, APIs</small></div>
+      <div class="skill"><b>Power Automate</b><small>Orquestração de fluxos</small></div>
+      <div class="skill"><b>Power Query (M)</b><small>ETL e tratamento</small></div>
+      <div class="skill"><b>APIs / Integrações</b><small>REST, webhooks</small></div>
+      <div class="skill"><b>IA aplicada</b><small>Classificação, previsão, LLMs</small></div>
+      <div class="skill"><b>Power BI</b><small>Dashboards e KPIs</small></div>
+      <div class="skill"><b>SQL</b><small>Consultas e modelagem</small></div>
+      <div class="skill"><b>Excel avançado</b><small>Modelagem e automação</small></div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="projetos">
+  <div class="wrap">
+    <div class="eyebrow">Projetos em destaque</div>
+    <h2 style="font-size:clamp(1.6rem,4vw,2.2rem)">Casos reais, dados anonimizados</h2>
+    <p style="color:var(--muted); margin-top:.8rem; max-width:58ch">Cada projeto segue o formato problema → solução → resultado. Dados, nomes e valores reais foram removidos ou substituídos.</p>
+    <div class="proj-grid">
+
+      <article class="card">
+        <div class="cat">Automação</div>
+        <h3>Relatório diário de ruptura automatizado</h3>
+        <div class="q">Como entregar o relatório de ruptura pronto antes do expediente?</div>
+        <p>Fluxo que coleta dados de múltiplos sistemas, trata em Power Query e dispara o relatório formatado por e-mail toda manhã — sem toque humano.</p>
+        <div class="tags"><span class="tag">Power Automate</span><span class="tag">Power Query</span><span class="tag">API</span></div>
+        <div class="metric"><b>-90%</b> tempo de processo</div>
+        <a class="card-link" href="https://github.com/Gustavo-santos98/portfolio" target="_blank" rel="noopener">Ver case no GitHub →</a>
+      </article>
+
+      <article class="card">
+        <div class="cat">IA aplicada</div>
+        <h3>Classificação automática de [itens/pedidos]</h3>
+        <div class="q">Dá para classificar [X] sem revisão manual item a item?</div>
+        <p>Modelo/IA que classifica [descreva] a partir do histórico, reduzindo a triagem manual e padronizando o critério de decisão.</p>
+        <div class="tags"><span class="tag">Python</span><span class="tag">IA / LLM</span><span class="tag">pandas</span></div>
+        <div class="metric"><b>[+X%]</b> precisão / tempo</div>
+        <a class="card-link" href="https://github.com/Gustavo-santos98/portfolio" target="_blank" rel="noopener">Ver case no GitHub →</a>
+      </article>
+
+      <article class="card">
+        <div class="cat">Integração</div>
+        <h3>Integração entre [sistema A] e [sistema B]</h3>
+        <div class="q">Como manter os dados sincronizados sem exportar planilha?</div>
+        <p>Conexão via API que elimina a exportação/importação manual e mantém as bases atualizadas automaticamente.</p>
+        <div class="tags"><span class="tag">API REST</span><span class="tag">Power Automate</span></div>
+        <div class="metric"><b>tempo real</b> sincronização</div>
+        <a class="card-link" href="https://github.com/Gustavo-santos98/portfolio" target="_blank" rel="noopener">Ver case no GitHub →</a>
+      </article>
+
+      <article class="card">
+        <div class="cat">Dashboard</div>
+        <h3>Painel de indicadores de [área]</h3>
+        <div class="q">Onde estão os maiores gargalos e oportunidades?</div>
+        <p>Dashboard com os KPIs que a operação acompanha, estruturado da visão executiva ao detalhe para apoiar a decisão.</p>
+        <div class="tags"><span class="tag">Power BI</span><span class="tag">SQL</span><span class="tag">DAX</span></div>
+        <div class="metric"><b>visibilidade</b> de KPIs</div>
+        <a class="card-link" href="https://github.com/Gustavo-santos98/portfolio" target="_blank" rel="noopener">Ver case no GitHub →</a>
+      </article>
+
+    </div>
+  </div>
+</section>
+
+<section class="section alt contact" id="contato">
+  <div class="wrap">
+    <div class="eyebrow" style="text-align:center">Contato</div>
+    <h2>Vamos conversar sobre dados e automação?</h2>
+    <p>Aberto a oportunidades em dados, automação e IA aplicada a supply chain e operações.</p>
+    <div class="contact-row">
+      <span class="mail-chip"><span id="mail">tavaresgu7@gmail.com</span><button class="copy-btn" id="copyMail">copiar</button></span>
+    </div>
+    <div class="contact-row">
+      <a class="btn btn-ghost" href="https://www.linkedin.com/in/gustavotsantos/" target="_blank" rel="noopener">LinkedIn</a>
+      <a class="btn btn-ghost" href="https://github.com/Gustavo-santos98" target="_blank" rel="noopener">GitHub</a>
+      <a class="btn btn-ghost" href="curriculo.pdf" target="_blank" rel="noopener">Currículo em PDF</a>
+    </div>
+  </div>
+</section>
+
+<footer><div class="wrap">© <span id="yr"></span> Gustavo Santos · Portfólio de Supply Chain & IA</div></footer>
+
+<script>
+  document.getElementById('yr').textContent = new Date().getFullYear();
+
+  (function () {
+    var root = document.documentElement, btn = document.getElementById('themeToggle'), stored = null;
+    try { stored = localStorage.getItem('tema'); } catch (e) {}
+    if (stored === 'dark' || stored === 'light') root.setAttribute('data-theme', stored);
+    btn.addEventListener('click', function () {
+      var isDark = root.getAttribute('data-theme') === 'dark' ||
+        (!root.getAttribute('data-theme') && matchMedia('(prefers-color-scheme: dark)').matches);
+      var next = isDark ? 'light' : 'dark';
+      root.setAttribute('data-theme', next);
+      try { localStorage.setItem('tema', next); } catch (e) {}
+    });
+  })();
+
+  (function () {
+    var btn = document.getElementById('copyMail'), mail = document.getElementById('mail');
+    btn.addEventListener('click', function () {
+      var txt = mail.textContent.trim();
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(txt).then(function () {
+          btn.textContent = 'copiado ✓'; setTimeout(function () { btn.textContent = 'copiar'; }, 1800);
+        }).catch(sel);
+      } else { sel(); }
+      function sel() {
+        var r = document.createRange(); r.selectNodeContents(mail);
+        var s = getSelection(); s.removeAllRanges(); s.addRange(r);
+        btn.textContent = 'selecionado'; setTimeout(function () { btn.textContent = 'copiar'; }, 1800);
+      }
+    });
+  })();
+
+  document.querySelectorAll('a[href^="#"]').forEach(function (a) {
+    a.addEventListener('click', function (e) {
+      var el = document.querySelector(a.getAttribute('href'));
+      if (el) { e.preventDefault(); el.scrollIntoView({ behavior: 'smooth', block: 'start' }); }
+    });
+  });
+</script>
