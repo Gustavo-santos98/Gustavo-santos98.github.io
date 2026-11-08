@@ -16,19 +16,6 @@
     --body: "Inter", system-ui, "Segoe UI", sans-serif;
     --mono: "JetBrains Mono", ui-monospace, Menlo, monospace;
   }
-  @media (prefers-color-scheme: dark) {
-    :root:not([data-theme="light"]) {
-      --bg: #0e0f10;
-      --surface: #17181a;
-      --surface-2: #202224;
-      --fg: #f0f1f2;
-      --muted: #a2a7ab;
-      --line: #2a2c2f;
-      --accent: #f0f1f2;     /* branco no escuro */
-      --accent-ink: #0e0f10;
-      color-scheme: dark;
-    }
-  }
   :root[data-theme="dark"] {
     --bg: #0e0f10;
     --surface: #17181a;
@@ -63,7 +50,9 @@
     border-bottom: 1px solid var(--line); }
   body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px); z-index: 21; background: var(--bg); }
   .nav-inner { display: flex; align-items: center; justify-content: space-between; gap: 1rem; padding-block: 0.85rem; }
-  .brand { font-family: var(--display); font-weight: 700; font-size: 1.02rem; letter-spacing: -0.01em; }
+  .brand { font-family: var(--display); font-weight: 700; font-size: 1.02rem; letter-spacing: -0.01em; display: inline-flex; align-items: center; }
+  .flags { display: inline-flex; gap: 5px; margin-left: 8px; }
+  .flag { height: 13px; width: auto; border-radius: 2px; box-shadow: 0 0 0 1px rgba(128,128,128,.35); display: block; }
   .nav-links { display: flex; gap: 1.4rem; flex-wrap: wrap; }
   .nav-links a { text-decoration: none; font-size: 0.9rem; color: var(--muted); transition: color .18s; }
   .nav-links a:hover { color: var(--fg); }
@@ -94,8 +83,8 @@
   /* SOBRE */
   .alt { background: var(--surface); border-block: 1px solid var(--line); }
   .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(1.5rem,4vw,3rem); align-items: start; }
-  @media (max-width: 760px) { .about-grid { grid-template-columns: 1fr; } }
-  .about-grid h2 { font-size: clamp(1.6rem, 4vw, 2.2rem); }
+  @media (max-width: 760px) { .about-grid { grid-template-columns: 1fr; gap: 1.25rem; } }
+  .about-grid h2 { font-size: clamp(1.4rem, 3.2vw, 1.85rem); color: var(--fg); margin-bottom: 0.6rem; }
   .about-grid p + p { margin-top: 1rem; }
   .body-col { color: var(--muted); max-width: 60ch; }
   .body-col strong { color: var(--fg); }
@@ -127,13 +116,37 @@
   .card:hover { border-color: var(--fg); transform: translateY(-3px); }
   .card .cat { font-family: var(--mono); font-size: .71rem; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); }
   .card h3 { font-size: 1.22rem; }
-  .card .q { color: var(--muted); font-style: italic; font-size: .92rem; }
+  .card .q { color: var(--muted); font-style: italic; font-size: .85rem; }
   .card p { color: var(--muted); font-size: .92rem; min-width: 0; }
   .tags { display: flex; flex-wrap: wrap; gap: .4rem; margin-top: .2rem; }
   .tag { font-family: var(--mono); font-size: .72rem; padding: .2rem .55rem; border-radius: 5px;
     background: var(--surface-2); color: var(--fg); border: 1px solid var(--line); }
+  /* cores por ferramenta — fundo com a cor da marca, texto na cor padrão */
+  .tag.api, .tag.pbi, .tag.papps, .tag.pauto, .tag.excel, .tag.sap, .tag.teams, .tag.onelake, .tag.forms, .tag.pquery { border-color: transparent; }
+  .tag.api     { background: #FFF0E6; }
+  .tag.pbi     { background: rgba(242,200,17,0.20); }
+  .tag.papps   { background: #F2E7F2; }
+  .tag.pauto   { background: #E6F0FF; }
+  .tag.excel   { background: #E3F1E9; }
+  .tag.sap     { background: rgba(91,116,144,0.14); }
+  .tag.teams   { background: #ECECF6; }
+  .tag.onelake { background: #E0F0EF; }
+  .tag.forms   { background: #EDE7F4; }
+  .tag.pquery  { background: rgba(0,90,84,0.14); }
+  :root[data-theme="dark"] .tag.api     { background: rgba(255,108,55,0.22); }
+  :root[data-theme="dark"] .tag.pbi     { background: rgba(242,200,17,0.24); }
+  :root[data-theme="dark"] .tag.papps   { background: rgba(170,70,170,0.28); }
+  :root[data-theme="dark"] .tag.pauto   { background: rgba(0,102,255,0.26); }
+  :root[data-theme="dark"] .tag.excel   { background: rgba(33,160,90,0.26); }
+  :root[data-theme="dark"] .tag.sap     { background: rgba(91,116,144,0.32); }
+  :root[data-theme="dark"] .tag.teams   { background: rgba(120,122,200,0.30); }
+  :root[data-theme="dark"] .tag.onelake { background: rgba(20,160,158,0.26); }
+  :root[data-theme="dark"] .tag.forms   { background: rgba(140,80,200,0.28); }
+  :root[data-theme="dark"] .tag.pquery  { background: rgba(0,90,84,0.45); }
   .metric { display: inline-flex; align-items: baseline; gap: .4rem; font-family: var(--mono); font-size: .82rem; color: var(--fg); margin-top: .3rem; }
   .metric b { font-size: 1.05rem; }
+  .metrics { display: flex; flex-wrap: wrap; gap: .15rem 1.1rem; margin-top: .3rem; }
+  .metrics .metric { margin-top: 0; }
   .card-link { margin-top: auto; font-size: .88rem; font-weight: 600; text-decoration: none; color: var(--fg);
     display: inline-flex; align-items: center; gap: .3rem; border-bottom: 1px solid var(--line); align-self: flex-start; padding-bottom: 1px; }
   .card-link:hover { border-color: var(--fg); }
@@ -153,6 +166,10 @@
   .theme-btn { background: transparent; border: 1px solid var(--line); color: var(--muted); width: 34px; height: 34px;
     border-radius: 7px; cursor: pointer; font-size: .95rem; display: grid; place-items: center; }
   .theme-btn:hover { color: var(--fg); border-color: var(--muted); }
+  .nav-actions { display: flex; align-items: center; gap: .5rem; }
+  .lang-btn { background: transparent; border: 1px solid var(--line); color: var(--muted); height: 34px; padding: 0 .55rem;
+    border-radius: 7px; cursor: pointer; font-size: .76rem; font-family: var(--mono); font-weight: 700; letter-spacing: .04em; }
+  .lang-btn:hover { color: var(--fg); border-color: var(--muted); }
 
   @media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
 </style>
@@ -161,62 +178,68 @@
 
 <nav>
   <div class="wrap nav-inner">
-    <div class="brand">Gustavo Santos</div>
+    <div class="brand">Gustavo Santos<span class="flags">
+      <svg class="flag" viewBox="0 0 28 20" role="img" aria-label="Brasil"><rect width="28" height="20" fill="#009C3B"/><polygon points="14,2.2 25.8,10 14,17.8 2.2,10" fill="#FFDF00"/><circle cx="14" cy="10" r="4.1" fill="#002776"/></svg>
+      <svg class="flag" viewBox="0 0 3 2" role="img" aria-label="Itália"><rect width="1" height="2" x="0" fill="#009246"/><rect width="1" height="2" x="1" fill="#ffffff"/><rect width="1" height="2" x="2" fill="#CE2B37"/></svg>
+    </span></div>
     <div class="nav-links">
-      <a href="#sobre">Sobre</a>
-      <a href="#valor">Como atuo</a>
-      <a href="#competencias">Competências</a>
-      <a href="#projetos">Projetos</a>
-      <a href="#contato">Contato</a>
+      <a href="#sobre" data-en="About">Sobre</a>
+      <a href="#valor" data-en="How I work">Como atuo</a>
+      <a href="#competencias" data-en="Skills">Competências</a>
+      <a href="#projetos" data-en="Projects">Projetos</a>
+      <a href="#contato" data-en="Contact">Contato</a>
     </div>
-    <button class="theme-btn" id="themeToggle" aria-label="Alternar tema">◐</button>
+    <div class="nav-actions">
+      <button class="lang-btn" id="langToggle" aria-label="Switch language / Alternar idioma">EN</button>
+      <button class="theme-btn" id="themeToggle" aria-label="Alternar tema">◐</button>
+    </div>
   </div>
 </nav>
 
 <header class="hero section">
   <div class="wrap">
     <div>
-      <h1>Transformando supply chain com dados e IA.</h1>
-      <p class="lede">Venho da operação de supply chain e construo automações e soluções de IA em cima de processos reais — de quem entende o problema de negócio e sabe resolvê-lo tecnicamente.</p>
+      <h1 data-en="Transforming supply chain with data engineering and AI.">Transformando supply chain com engenharia de dados e IA.</h1>
+      <p class="lede" data-en="I come from supply chain operations and build automations and AI solutions on top of real processes, from someone who understands the problems and knows how to solve them technically.">Venho da operação de supply chain e construo automações e soluções de IA em cima de processos reais, de quem entende os problemas e sabe resolvê-lo tecnicamente.</p>
       <div class="cta-row">
-        <a class="btn btn-primary" href="#projetos">Ver projetos</a>
-        <a class="btn btn-ghost" href="curriculo.pdf" target="_blank" rel="noopener">Currículo</a>
+        <a class="btn btn-primary" href="#projetos" data-en="View projects">Ver projetos</a>
+        <a class="btn btn-ghost" href="curriculo.pdf" data-pdf="cv" target="_blank" rel="noopener" data-en="Resume">Currículo</a>
         <a class="btn btn-ghost" href="https://www.linkedin.com/in/gustavotsantos/" target="_blank" rel="noopener">LinkedIn</a>
-        <a class="btn btn-ghost" href="premios.pdf" target="_blank" rel="noopener">Certificados</a>
+        <a class="btn btn-ghost" href="premios.pdf" data-pdf="awards" target="_blank" rel="noopener" data-en="Certificates &amp; awards">Certificados e prêmios</a>
       </div>
     </div>
 
     <div class="pipeline">
       <div class="pipe-card">
-        <b>APIs, bancos e planilhas</b>
-        <small>Fontes diferentes, formatos diferentes</small>
+        <b data-en="APIs, databases and spreadsheets">APIs, bancos e planilhas</b>
+        <small data-en="Different sources, different formats">Fontes diferentes, formatos diferentes</small>
       </div>
       <div class="arrow">→</div>
       <div class="pipe-card">
         <b>Python, Power Query & Automate</b>
-        <small>Extração, tratamento e automação</small>
+        <small data-en="Extraction, processing and automation">Extração, tratamento e automação</small>
       </div>
       <div class="arrow">→</div>
       <div class="pipe-card accent">
-        <b>IA & Power BI</b>
-        <small>Decisão mais rápida para a operação</small>
+        <b data-en="AI &amp; Power BI">IA & Power BI</b>
+        <small data-en="Faster decisions for the operation">Decisão mais rápida para a operação</small>
       </div>
     </div>
   </div>
 </header>
 
 <section class="section alt" id="sobre">
-  <div class="wrap about-grid">
-    <div>
-      <div class="eyebrow">Sobre</div>
-      <h2>Quem entende o processo e constrói a solução.</h2>
-    </div>
-    <div class="body-col">
-      <p>Atuo há <strong>7 anos</strong> em Supply Chain e, nesse tempo, me especializei em resolver gargalos operacionais com dados, automação e IA. Meu diferencial é unir <strong>conhecimento profundo de processos de negócio</strong> com a <strong>capacidade técnica de automatizá-los</strong>.</p>
-      <p>Trabalho muito com tratamento de dados e automação ponta a ponta: extraio de várias fontes, padronizo, aplico IA onde ela gera valor real e devolvo o resultado no formato que a operação precisa para decidir.</p>
-      <div class="highlight">
-        <span class="big">[ex: de 1h → 5min]</span>
-        Automatizei em [Python/Power Automate] a coleta e consolidação de dados de [N] fontes, reduzindo um processo diário de cerca de uma hora para poucos minutos.
+  <div class="wrap">
+    <div class="eyebrow" data-en="About">Sobre</div>
+    <div class="about-grid">
+      <div class="body-col">
+        <h2 data-en="Who understands the process and builds the solution.">Quem entende o processo e constrói a solução.</h2>
+        <p data-en="For <strong>7 years</strong> I've worked in Supply Chain and Continuous Improvement, building my career by connecting process and business bottlenecks to scalable solutions with lean, data, automation and AI.">Atuo há <strong>7 anos</strong> em Supply Chain e Melhoria Contínua, construí minha trajetória conectando gargalos de processos e negócios a soluções escaláveis com lean, dados, automação e IA.</p>
+        <div class="highlight" data-en="<strong>My edge:</strong> combining a lean mindset, <strong>deep knowledge of digital processes</strong> and the shop floor with the <strong>technical ability to automate them</strong> end to end, from data extraction and standardization to delivering solutions ready for decision-making."><strong>O meu diferencial:</strong> Unir a mentalidade do lean, <strong>conhecimento profundo dos processos digitais</strong> e do chão de fábrica à <strong>capacidade técnica de automatizá-los</strong> ponta a ponta, desde a extração e padronização de dados até a entrega de soluções prontas para a tomada de decisão.</div>
+      </div>
+      <div class="body-col">
+        <p data-en="My journey began in the fast-paced <strong>scale-up</strong> of an e-commerce. For 2 years, working directly alongside the founder, I was a key player in structuring operational areas, creating <strong>playbooks</strong> and <strong>leading projects</strong>, driving the company to the <strong>Top 3 in Brazil</strong> in its online segment.">Minha jornada começou no ambiente acelerado de <strong>scale-up</strong> de um e-commerce. Durante 2 anos, atuando diretamente ao lado do founder, fui peça-chave na estruturação de áreas operacionais, criação de <strong>playbooks</strong> e <strong>liderando projetos</strong>, impulsionando a empresa ao <strong>Top 3 do Brasil</strong> em seu segmento online.</p>
+        <p data-en="Looking for new challenges, I relocated to another state in Brazil to join a Norwegian multinational, a global leader in advanced silicon and silicones, strongly driven by <strong>Lean Manufacturing</strong> and <strong>ESG</strong>. There I grew from automating operational tasks to the strategic level, leading the digital transition, S&amp;OP/MRP governance in SAP and the practical use of Artificial Intelligence &amp; data analysis for industrial productivity.">Buscando novos desafios, migrei para uma multinacional norueguesa líder global na produção de silício e silicones avançados, fortemente orientada a <strong>Lean Manufacturing</strong> e <strong>ESG</strong>. Nela, evoluí automatizando atividades operacionais até chegar no estratégico liderando a transição digital, governança de S&amp;OP/MRP no SAP e a aplicação prática de Inteligência Artificial para produtividade industrial.</p>
       </div>
     </div>
   </div>
@@ -224,23 +247,23 @@
 
 <section class="section" id="valor">
   <div class="wrap">
-    <div class="eyebrow">Como gero valor</div>
-    <h2 style="font-size:clamp(1.6rem,4vw,2.2rem)">Três frentes de trabalho</h2>
+    <div class="eyebrow" data-en="How I add value">Como gero valor</div>
+    <h2 style="font-size:clamp(1.6rem,4vw,2.2rem)" data-en="Three areas of work">Três frentes de trabalho</h2>
     <div class="pillars">
       <div class="pillar">
-        <div class="ico">Automação</div>
-        <h3>Processos que rodam sozinhos</h3>
-        <p>Transformo rotinas manuais e repetitivas em fluxos automatizados, confiáveis e que outras pessoas da equipe conseguem manter.</p>
+        <div class="ico" data-en="Automation">Automação</div>
+        <h3 data-en="Processes that run on their own">Processos que rodam sozinhos</h3>
+        <p data-en="I turn manual, repetitive routines into automated, reliable flows that other people on the team can maintain.">Transformo rotinas manuais e repetitivas em fluxos automatizados, confiáveis e que outras pessoas da equipe conseguem manter.</p>
       </div>
       <div class="pillar">
-        <div class="ico">Dados</div>
-        <h3>Dados confiáveis e tratados</h3>
-        <p>Extração, limpeza, padronização e validação de dados de múltiplas fontes — a base para qualquer análise ou decisão fazer sentido.</p>
+        <div class="ico" data-en="Data">Dados</div>
+        <h3 data-en="Reliable, well-processed data">Dados confiáveis e tratados</h3>
+        <p data-en="Extraction, cleaning, standardization and validation of data from multiple sources, the foundation for any analysis or decision to make sense.">Extração, limpeza, padronização e validação de dados de múltiplas fontes — a base para qualquer análise ou decisão fazer sentido.</p>
       </div>
       <div class="pillar">
-        <div class="ico">IA aplicada</div>
-        <h3>IA no lugar certo do processo</h3>
-        <p>Uso IA para classificar, prever e acelerar decisões dentro do fluxo de supply chain, sempre amarrada a um ganho de negócio concreto.</p>
+        <div class="ico" data-en="Applied AI">IA aplicada</div>
+        <h3 data-en="AI in the right place in the process">IA no lugar certo do processo</h3>
+        <p data-en="I use AI to classify, forecast and speed up decisions within the supply chain flow, always tied to a concrete business gain.">Uso IA para classificar, prever e acelerar decisões dentro do fluxo de supply chain, sempre amarrada a um ganho de negócio concreto.</p>
       </div>
     </div>
   </div>
@@ -248,66 +271,79 @@
 
 <section class="section alt" id="competencias">
   <div class="wrap">
-    <div class="eyebrow">Competências técnicas</div>
-    <h2 style="font-size:clamp(1.6rem,4vw,2.2rem)">Da extração do dado à decisão</h2>
+    <div class="eyebrow" data-en="Technical skills">Competências técnicas</div>
+    <h2 style="font-size:clamp(1.6rem,4vw,2.2rem)" data-en="From data extraction to decision">Da extração do dado à decisão</h2>
     <div class="skills-grid">
-      <div class="skill"><b>Python</b><small>pandas, automação, APIs</small></div>
-      <div class="skill"><b>Power Automate</b><small>Orquestração de fluxos</small></div>
-      <div class="skill"><b>Power Query (M)</b><small>ETL e tratamento</small></div>
-      <div class="skill"><b>APIs / Integrações</b><small>REST, webhooks</small></div>
-      <div class="skill"><b>IA aplicada</b><small>Classificação, previsão, LLMs</small></div>
-      <div class="skill"><b>Power BI</b><small>Dashboards e KPIs</small></div>
-      <div class="skill"><b>SQL</b><small>Consultas e modelagem</small></div>
-      <div class="skill"><b>Excel avançado</b><small>Modelagem e automação</small></div>
+      <div class="skill"><b>Python</b><small data-en="pandas, automation, APIs">pandas, automação, APIs</small></div>
+      <div class="skill"><b>Power Automate</b><small data-en="Flow orchestration">Orquestração de fluxos</small></div>
+      <div class="skill"><b>Power Query (M)</b><small data-en="ETL and processing">ETL e tratamento</small></div>
+      <div class="skill"><b data-en="APIs / Integrations">APIs / Integrações</b><small>REST, webhooks</small></div>
+      <div class="skill"><b data-en="Applied AI">IA aplicada</b><small data-en="Classification, forecasting, LLMs">Classificação, previsão, LLMs</small></div>
+      <div class="skill"><b>Power BI</b><small data-en="Dashboards and KPIs">Dashboards e KPIs</small></div>
+      <div class="skill"><b>SQL</b><small data-en="Queries and modeling">Consultas e modelagem</small></div>
+      <div class="skill"><b data-en="Advanced Excel">Excel avançado</b><small data-en="Modeling and automation">Modelagem e automação</small></div>
     </div>
   </div>
 </section>
 
 <section class="section" id="projetos">
   <div class="wrap">
-    <div class="eyebrow">Projetos em destaque</div>
-    <h2 style="font-size:clamp(1.6rem,4vw,2.2rem)">Casos reais, dados anonimizados</h2>
-    <p style="color:var(--muted); margin-top:.8rem; max-width:58ch">Cada projeto segue o formato problema → solução → resultado. Dados, nomes e valores reais foram removidos ou substituídos.</p>
+    <div class="eyebrow" data-en="Featured projects">Projetos em destaque</div>
+    <h2 style="font-size:clamp(1.6rem,4vw,2.2rem)" data-en="Real cases, anonymized data">Casos reais, dados anonimizados</h2>
+    <p style="color:var(--muted); margin-top:.8rem; max-width:58ch" data-en="Each project follows the problem → solution → result format. Real data, names and values have been removed or replaced.">Cada projeto segue o formato problema → solução → resultado. Dados, nomes e valores reais foram removidos ou substituídos.</p>
     <div class="proj-grid">
 
       <article class="card">
-        <div class="cat">Automação</div>
-        <h3>Relatório diário de ruptura automatizado</h3>
-        <div class="q">Como entregar o relatório de ruptura pronto antes do expediente?</div>
-        <p>Fluxo que coleta dados de múltiplos sistemas, trata em Power Query e dispara o relatório formatado por e-mail toda manhã — sem toque humano.</p>
-        <div class="tags"><span class="tag">Power Automate</span><span class="tag">Power Query</span><span class="tag">API</span></div>
-        <div class="metric"><b>-90%</b> tempo de processo</div>
-        <a class="card-link" href="https://github.com/Gustavo-santos98/portfolio" target="_blank" rel="noopener">Ver case no GitHub →</a>
+        <div class="cat">Power BI End-to-End Dashboard Project</div>
+        <h3>Procurement Follow-Up</h3>
+        <div class="q" data-en="Import tracking without daily reports, emails and manual SAP lookups">Acompanhamento de importações sem relatórios diários, e-mails e consulta manual no SAP</div>
+        <p data-en="Import-tracking dashboard fed by the customs broker's API, replacing daily reports, emails and manual SAP lookups. Smart, forward-looking visual management of critical or delayed shipments gave the planning and foreign-trade team the means to mitigate stockouts.">Dashboard de acompanhamento de importações alimentado por API do despachante aduaneiro, no lugar de relatórios diários, e-mails e consulta manual no SAP. Gestão visual inteligente e antecipada das cargas críticas ou atrasadas deu à equipe de planejamento e comércio exterior condições de mitigar rupturas.</p>
+        <div class="metrics">
+          <div class="metric" data-en="<b>-90%</b> process time"><b>-90%</b> tempo de processo</div>
+          <div class="metric" data-en="<b>+10%</b> Planned vs Actual"><b>+10%</b> Planejado x Realizado</div>
+          <div class="metric" data-en="<b>+</b> New layer available to build automations and alerts"><b>+</b> Nova camada disponível para criar automações e alertas</div>
+        </div>
+        <div class="tags"><span class="tag api">API</span><span class="tag onelake">OneLake</span><span class="tag pquery">Power Query</span><span class="tag pbi">Power BI</span><span class="tag">Star Schema</span></div>
+        <a class="card-link" href="https://github.com/Gustavo-santos98/portfolio" target="_blank" rel="noopener" data-en="View case on GitHub →">Ver case no GitHub →</a>
       </article>
 
       <article class="card">
-        <div class="cat">IA aplicada</div>
-        <h3>Classificação automática de [itens/pedidos]</h3>
-        <div class="q">Dá para classificar [X] sem revisão manual item a item?</div>
-        <p>Modelo/IA que classifica [descreva] a partir do histórico, reduzindo a triagem manual e padronizando o critério de decisão.</p>
-        <div class="tags"><span class="tag">Python</span><span class="tag">IA / LLM</span><span class="tag">pandas</span></div>
-        <div class="metric"><b>[+X%]</b> precisão / tempo</div>
-        <a class="card-link" href="https://github.com/Gustavo-santos98/portfolio" target="_blank" rel="noopener">Ver case no GitHub →</a>
+        <div class="cat">Power Apps Canvas App</div>
+        <h3 data-en="MRO Reservations">Reservas MRO</h3>
+        <div class="q" data-en="How can the factory reserve items outside logistics hours, without duplicate requests?">Como a fábrica reserva itens fora do horário da logística, sem pedidos duplicados?</div>
+        <p data-en="Power Apps app for the factory to reserve MRO, PPE and factory items: it browses the active-item portfolio and quantities and builds the order like a shopping cart. The reservation goes by email for logistics to enter in SAP and, once confirmed in the app, triggers pickup or delivery notifications. It also includes a new-material form that exports to Excel for procurement to create in SAP with all the required information.">App em Power Apps para a fábrica reservar itens MRO, EPI e itens de fábrica: consulta o portfólio de itens ativos e as quantidades e monta o pedido como um carrinho de compras. A reserva segue por e-mail para a logística lançar no SAP e, ao confirmar no app, dispara notificações de retirada ou entrega. Traz ainda um formulário de novos materiais que sai em Excel para o procurement criar no SAP com todas as informações necessárias.</p>
+        <div class="metrics">
+          <div class="metric" data-en="<b>30 → 6</b> delay deviations"><b>30 → 6</b> desvios por atraso</div>
+          <div class="metric" data-en="<b>10</b> screens"><b>10</b> telas</div>
+        </div>
+        <div class="tags"><span class="tag papps">Power Apps</span><span class="tag">Canvas</span><span class="tag pauto">Power Automate</span><span class="tag forms">Forms</span><span class="tag excel">Excel</span></div>
+        <a class="card-link" href="https://github.com/Gustavo-santos98/portfolio" target="_blank" rel="noopener" data-en="View case on GitHub →">Ver case no GitHub →</a>
       </article>
 
       <article class="card">
-        <div class="cat">Integração</div>
-        <h3>Integração entre [sistema A] e [sistema B]</h3>
-        <div class="q">Como manter os dados sincronizados sem exportar planilha?</div>
-        <p>Conexão via API que elimina a exportação/importação manual e mantém as bases atualizadas automaticamente.</p>
-        <div class="tags"><span class="tag">API REST</span><span class="tag">Power Automate</span></div>
-        <div class="metric"><b>tempo real</b> sincronização</div>
-        <a class="card-link" href="https://github.com/Gustavo-santos98/portfolio" target="_blank" rel="noopener">Ver case no GitHub →</a>
+        <div class="cat">Power Automate Cloud Flow</div>
+        <h3 data-en="Daily priorities in Teams">Prioridades diárias no Teams</h3>
+        <div class="q" data-en="How to keep supply chain, customs broker and logistics aligned on priorities every day?">Como manter supply chain, despachante e logística alinhados nas prioridades todo dia?</div>
+        <p data-en="A flow that runs daily, connecting the Power BI base (refreshed by API) to the Power Apps where the team flags critical items and, out of around 100 columns, extracts only the essentials (item, arrival date, process status, transit time, process reference and update date). It sends a formatted table to the supply chain, customs broker and logistics Teams groups, keeping everyone aligned and avoiding deviations from lack of prioritization in a chaotic international logistics scenario.">Fluxo que roda diariamente, conecta a base do Power BI (atualizada por API) ao Power Apps onde o time marca os itens críticos e, entre cerca de 100 colunas, extrai só o essencial (item, data de chegada, status, tempo de trânsito, referência e data de atualização). Envia uma tabela formatada nos grupos do Teams de supply chain, despachante aduaneiro e logística, mantendo todos alinhados e evitando desvios por falta de priorização num cenário logístico internacional caótico.</p>
+        <div class="metrics">
+          <div class="metric" data-en="<b>−</b> Deviations from not following the procedure"><b>−</b> Desvios por falta de seguir o procedimento</div>
+          <div class="metric" data-en="<b>3</b> Teams with aligned priorities"><b>3</b> Times com prioridades alinhadas</div>
+        </div>
+        <div class="tags"><span class="tag pauto">Power Automate</span><span class="tag pbi">Power BI</span><span class="tag papps">Power Apps</span><span class="tag api">API</span><span class="tag teams">Teams</span></div>
+        <a class="card-link" href="https://github.com/Gustavo-santos98/portfolio" target="_blank" rel="noopener" data-en="View case on GitHub →">Ver case no GitHub →</a>
       </article>
 
       <article class="card">
-        <div class="cat">Dashboard</div>
-        <h3>Painel de indicadores de [área]</h3>
-        <div class="q">Onde estão os maiores gargalos e oportunidades?</div>
-        <p>Dashboard com os KPIs que a operação acompanha, estruturado da visão executiva ao detalhe para apoiar a decisão.</p>
-        <div class="tags"><span class="tag">Power BI</span><span class="tag">SQL</span><span class="tag">DAX</span></div>
-        <div class="metric"><b>visibilidade</b> de KPIs</div>
-        <a class="card-link" href="https://github.com/Gustavo-santos98/portfolio" target="_blank" rel="noopener">Ver case no GitHub →</a>
+        <div class="cat">Excel &amp; Power Query Model</div>
+        <h3 data-en="Capacity &amp; planning model">Modelo de capacidade e planejamento</h3>
+        <div class="q" data-en="How to simulate production scenarios integrating capacity, SAP, forecast and billing?">Como simular cenários de produção integrando capacidade, SAP, forecast e faturamento?</div>
+        <p data-en="Integrated Excel model for planning and simulating production scenarios: it brings together capacity (occupancy by shifts and line), billing, production plan (MRP), forecast and production base. It queries the SAP MD04 mirror and per-item billing, adds the forecast and calculates ending stock, demand and the production required for the defined DOH. It has one tab per production line and a consolidated tab, ready to take to BI or enter in SAP at the end of planning.">Planilha integrada em Excel para planejamento e simulação de cenários de produção: reúne capacidade (ocupação por turnos e linha), faturamento, plano de produção (MRP), forecast e base de produção. Conecta por query o espelho do MD04 do SAP e os faturamentos por item, soma o forecast e calcula estoque final, demanda e a produção necessária pelo DOH definido. Tem uma aba por linha de produção e uma aba consolidada, pronta para levar ao BI ou lançar no SAP ao fim do planejamento.</p>
+        <div class="metrics">
+          <div class="metric" data-en="<b>+</b> Simulatable production scenarios"><b>+</b> Cenários de produção simuláveis</div>
+          <div class="metric" data-en="<b>1</b> consolidated base ready for BI or SAP"><b>1</b> base consolidada pronta para BI ou SAP</div>
+        </div>
+        <div class="tags"><span class="tag excel">Excel</span><span class="tag pquery">Power Query</span><span class="tag sap">SAP</span><span class="tag">MRP</span><span class="tag">Forecast</span></div>
+        <a class="card-link" href="https://github.com/Gustavo-santos98/portfolio" target="_blank" rel="noopener" data-en="View case on GitHub →">Ver case no GitHub →</a>
       </article>
 
     </div>
@@ -316,59 +352,93 @@
 
 <section class="section alt contact" id="contato">
   <div class="wrap">
-    <div class="eyebrow" style="text-align:center">Contato</div>
-    <h2>Vamos conversar sobre dados e automação?</h2>
-    <p>Aberto a oportunidades em dados, automação e IA aplicada a supply chain e operações.</p>
+    <div class="eyebrow" style="text-align:center" data-en="Contact">Contato</div>
+    <h2 data-en="Let's connect?">Vamos nos conectar?</h2>
+    <p data-en="To exchange ideas about data, automation and AI applied to supply chain and operations.">Para trocar ideias sobre dados, automação e IA aplicada a supply chain e operações.</p>
     <div class="contact-row">
-      <span class="mail-chip"><span id="mail">tavaresgu7@gmail.com</span><button class="copy-btn" id="copyMail">copiar</button></span>
+      <span class="mail-chip"><span id="mail">tavaresgu7@gmail.com</span><button class="copy-btn" id="copyMail" data-en="copy">copiar</button></span>
     </div>
     <div class="contact-row">
       <a class="btn btn-ghost" href="https://www.linkedin.com/in/gustavotsantos/" target="_blank" rel="noopener">LinkedIn</a>
       <a class="btn btn-ghost" href="https://github.com/Gustavo-santos98" target="_blank" rel="noopener">GitHub</a>
-      <a class="btn btn-ghost" href="curriculo.pdf" target="_blank" rel="noopener">Currículo em PDF</a>
-      <a class="btn btn-ghost" href="premios.pdf" target="_blank" rel="noopener">Certificados e prêmios</a>
+      <a class="btn btn-ghost" href="curriculo.pdf" data-pdf="cv" target="_blank" rel="noopener" data-en="Resume (PDF)">Currículo em PDF</a>
+      <a class="btn btn-ghost" href="premios.pdf" data-pdf="awards" target="_blank" rel="noopener" data-en="Certificates &amp; awards">Certificados e prêmios</a>
     </div>
   </div>
 </section>
 
-<footer><div class="wrap">© <span id="yr"></span> Gustavo Santos · Portfólio de Supply Chain & IA</div></footer>
+<footer><div class="wrap">© <span id="yr"></span> Gustavo Santos · <span data-en="Supply Chain &amp; AI Portfolio">Portfólio de Supply Chain &amp; IA</span></div></footer>
 
 <script>
   document.getElementById('yr').textContent = new Date().getFullYear();
 
+  // tema (inicia claro)
   (function () {
     var root = document.documentElement, btn = document.getElementById('themeToggle'), stored = null;
     try { stored = localStorage.getItem('tema'); } catch (e) {}
-    if (stored === 'dark' || stored === 'light') root.setAttribute('data-theme', stored);
+    root.setAttribute('data-theme', stored === 'dark' ? 'dark' : 'light');
     btn.addEventListener('click', function () {
-      var isDark = root.getAttribute('data-theme') === 'dark' ||
-        (!root.getAttribute('data-theme') && matchMedia('(prefers-color-scheme: dark)').matches);
-      var next = isDark ? 'light' : 'dark';
+      var next = root.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
       root.setAttribute('data-theme', next);
       try { localStorage.setItem('tema', next); } catch (e) {}
     });
   })();
 
+  // idioma PT/EN
+  (function () {
+    var root = document.documentElement, btn = document.getElementById('langToggle');
+    var nodes = document.querySelectorAll('[data-en]');
+    nodes.forEach(function (n) { n.setAttribute('data-pt', n.innerHTML); });
+    var pdfs = { pt: { cv: 'curriculo.pdf', awards: 'premios.pdf' }, en: { cv: 'resume.pdf', awards: 'awards.pdf' } };
+    function apply(lang) {
+      lang = (lang === 'en') ? 'en' : 'pt';
+      root.setAttribute('lang', lang);
+      nodes.forEach(function (n) { n.innerHTML = n.getAttribute(lang === 'en' ? 'data-en' : 'data-pt'); });
+      document.querySelectorAll('[data-pdf="cv"]').forEach(function (a) { a.setAttribute('href', pdfs[lang].cv); });
+      document.querySelectorAll('[data-pdf="awards"]').forEach(function (a) { a.setAttribute('href', pdfs[lang].awards); });
+      if (btn) btn.textContent = lang === 'en' ? 'PT' : 'EN';
+      try { localStorage.setItem('lang', lang); } catch (e) {}
+    }
+    var initial = 'pt';
+    try { var s = localStorage.getItem('lang'); if (s === 'en' || s === 'pt') initial = s; } catch (e) {}
+    var h = (location.hash || '').toLowerCase();
+    if (h === '#en') initial = 'en'; else if (h === '#pt') initial = 'pt';
+    apply(initial);
+    if (btn) btn.addEventListener('click', function () {
+      apply(root.getAttribute('lang') === 'en' ? 'pt' : 'en');
+    });
+    window.addEventListener('hashchange', function () {
+      var hh = (location.hash || '').toLowerCase();
+      if (hh === '#en') apply('en'); else if (hh === '#pt') apply('pt');
+    });
+  })();
+
+  // copiar e-mail (rótulos conforme idioma)
   (function () {
     var btn = document.getElementById('copyMail'), mail = document.getElementById('mail');
     btn.addEventListener('click', function () {
+      var en = document.documentElement.getAttribute('lang') === 'en';
+      var okTxt = en ? 'copied ✓' : 'copiado ✓', selTxt = en ? 'selected' : 'selecionado', base = en ? 'copy' : 'copiar';
       var txt = mail.textContent.trim();
       if (navigator.clipboard && navigator.clipboard.writeText) {
         navigator.clipboard.writeText(txt).then(function () {
-          btn.textContent = 'copiado ✓'; setTimeout(function () { btn.textContent = 'copiar'; }, 1800);
+          btn.textContent = okTxt; setTimeout(function () { btn.textContent = base; }, 1800);
         }).catch(sel);
       } else { sel(); }
       function sel() {
         var r = document.createRange(); r.selectNodeContents(mail);
         var s = getSelection(); s.removeAllRanges(); s.addRange(r);
-        btn.textContent = 'selecionado'; setTimeout(function () { btn.textContent = 'copiar'; }, 1800);
+        btn.textContent = selTxt; setTimeout(function () { btn.textContent = base; }, 1800);
       }
     });
   })();
 
+  // rolagem suave (ignora #en/#pt)
   document.querySelectorAll('a[href^="#"]').forEach(function (a) {
     a.addEventListener('click', function (e) {
-      var el = document.querySelector(a.getAttribute('href'));
+      var tgt = a.getAttribute('href');
+      if (tgt === '#en' || tgt === '#pt') return;
+      var el = document.querySelector(tgt);
       if (el) { e.preventDefault(); el.scrollIntoView({ behavior: 'smooth', block: 'start' }); }
     });
   });
