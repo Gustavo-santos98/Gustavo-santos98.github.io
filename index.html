@@ -389,7 +389,7 @@
     var root = document.documentElement, btn = document.getElementById('langToggle');
     var nodes = document.querySelectorAll('[data-en]');
     nodes.forEach(function (n) { n.setAttribute('data-pt', n.innerHTML); });
-    var pdfs = { pt: { cv: 'curriculo.pdf', awards: 'premios.pdf' }, en: { cv: 'resume.pdf', awards: 'awards.pdf' } };
+    var pdfs = { pt: { cv: 'curriculo.pdf', awards: 'premios.html' }, en: { cv: 'resume.pdf', awards: 'premios.html#en' } };
     function apply(lang) {
       lang = (lang === 'en') ? 'en' : 'pt';
       root.setAttribute('lang', lang);
